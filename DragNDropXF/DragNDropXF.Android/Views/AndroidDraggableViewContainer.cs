@@ -24,15 +24,9 @@ namespace DragNDropXF.Droid
 
         public AndroidDraggableViewContainer(Context context) : base(context)
         {
-            LayoutInflater.FromContext(context).Inflate(Resource.Layout.DraggableView, this);
+            LayoutInflater.FromContext(context).Inflate(Resource.Layout.DraggableViewContainer, this);
             SetOnDragListener(this);
-
-            ChildViewAdded += OnChildViewAdded;
         }
-
-        private void OnChildViewAdded(object sender, ChildViewAddedEventArgs e)
-        {
-            
-        }
+      
     }
 }

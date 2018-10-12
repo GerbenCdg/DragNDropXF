@@ -29,5 +29,11 @@ namespace DragNDropXF.CustomControl
         //{
         //    Children = new ObservableCollection<DraggableView>();
         //}
+
+        public DraggableViewContainer()
+        {
+            HeightRequest = 100;
+            WidthRequest = 200; // Is not working
+        }
     }
 }

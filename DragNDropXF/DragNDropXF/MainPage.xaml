@@ -5,14 +5,36 @@
              xmlns:customControl="clr-namespace:DragNDropXF.CustomControl"
              x:Class="DragNDropXF.MainPage">
 
-    <customControl:DraggableViewContainer
+    <StackLayout Padding="24" Spacing="18"
+                 BackgroundColor="Beige"
+                 Orientation="Vertical">
+        
+        <customControl:DraggableViewContainer
             BackgroundColor="DarkOliveGreen"
-            x:Name="DraggableViewContainer">
+            x:Name="dvc1">
 
-        <customControl:DraggableView
+            <customControl:DraggableView
             x:Name="XamlDraggableView"/>
 
-    </customControl:DraggableViewContainer>
+        </customControl:DraggableViewContainer>
 
+        <customControl:DraggableViewContainer
+            x:Name="dvc2"
+            BackgroundColor="AliceBlue"/>
+
+        <customControl:DraggableViewContainer
+            x:Name="dvc3"
+            BackgroundColor="LightYellow"/>
+
+        <customControl:DraggableViewContainer
+            x:Name="dvc4"
+            BackgroundColor="MediumVioletRed"/>
+
+
+        <customControl:DraggableViewContainer
+            x:Name="dvc5"
+            BackgroundColor="Tomato"/>
+
+    </StackLayout>
 
 </ContentPage>

@@ -10,9 +10,9 @@ namespace DragNDropXF.CustomControl
         #region Events
 
         public event EventHandler<OnTouchedEventArgs> OnTouched;
-        public void RaiseOnTouched(Xamarin.Forms.View view)
+        public void RaiseOnTouched()
         {
-            OnTouched?.Invoke(this, new OnTouchedEventArgs(view));
+            OnTouched?.Invoke(this, new OnTouchedEventArgs(this));
         }
 
         #endregion

@@ -37,7 +37,7 @@ namespace DragNDropXF.Droid.CustomRenderer
 
                 view.OnTouched += (s, evt) =>
                 {
-                    Element.RaiseOnTouched(Element);
+                    Element.RaiseOnTouched();
                 };
 
                 SetNativeControl(view);
