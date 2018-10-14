@@ -2,13 +2,39 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DragNDropXF"
+             xmlns:customControl="clr-namespace:DragNDropXF.CustomControl"
              x:Class="DragNDropXF.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+    <StackLayout Padding="24" Spacing="18"
+                 BackgroundColor="Beige"
+                 Orientation="Vertical">
+        
+        <customControl:DraggableViewContainer
+            BackgroundColor="DarkOliveGreen"
+            x:Name="dvc1">
+
+            <customControl:DraggableView
+            x:Name="XamlDraggableView"/>
+
+        </customControl:DraggableViewContainer>
+
+        <customControl:DraggableViewContainer
+            x:Name="dvc2"
+            BackgroundColor="AliceBlue"/>
+
+        <customControl:DraggableViewContainer
+            x:Name="dvc3"
+            BackgroundColor="LightYellow"/>
+
+        <customControl:DraggableViewContainer
+            x:Name="dvc4"
+            BackgroundColor="MediumVioletRed"/>
+
+
+        <customControl:DraggableViewContainer
+            x:Name="dvc5"
+            BackgroundColor="Tomato"/>
+
     </StackLayout>
 
 </ContentPage>
