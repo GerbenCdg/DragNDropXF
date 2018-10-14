@@ -10,6 +10,7 @@ namespace DragNDropXF.CustomControl
         #region Events
 
         public event EventHandler<OnTouchedEventArgs> OnTouched;
+
         public void RaiseOnTouched()
         {
             OnTouched?.Invoke(this, new OnTouchedEventArgs(this));

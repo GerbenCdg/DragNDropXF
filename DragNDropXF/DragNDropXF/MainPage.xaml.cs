@@ -29,10 +29,10 @@ namespace DragNDropXF
             _Height = App.Current.MainPage.Height;
 
             dvc1.DragUpdated = HandleDrag;
-            dvc2.DragUpdated = HandleDrag;
-            dvc3.DragUpdated = HandleDrag;
-            dvc4.DragUpdated = HandleDrag;
-            dvc5.DragUpdated = HandleDrag;
+            //dvc2.DragUpdated = HandleDrag;
+            //dvc3.DragUpdated = HandleDrag;
+            //dvc4.DragUpdated = HandleDrag;
+            //dvc5.DragUpdated = HandleDrag;
 
             XamlDraggableView.OnTouched += XamlDraggableView_OnTouched;
         }

@@ -8,7 +8,10 @@
     <StackLayout Padding="24" Spacing="18"
                  BackgroundColor="Beige"
                  Orientation="Vertical">
-        
+
+        <customControl:DraggableView 
+            BackgroundColor="Blue"/>
+
         <customControl:DraggableViewContainer
             BackgroundColor="DarkOliveGreen"
             x:Name="dvc1">
@@ -18,7 +21,7 @@
 
         </customControl:DraggableViewContainer>
 
-        <customControl:DraggableViewContainer
+        <!--<customControl:DraggableViewContainer
             x:Name="dvc2"
             BackgroundColor="AliceBlue"/>
 
@@ -30,10 +33,9 @@
             x:Name="dvc4"
             BackgroundColor="MediumVioletRed"/>
 
-
         <customControl:DraggableViewContainer
             x:Name="dvc5"
-            BackgroundColor="Tomato"/>
+            BackgroundColor="Tomato"/>-->
 
     </StackLayout>
 
