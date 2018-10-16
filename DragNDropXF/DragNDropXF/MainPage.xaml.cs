@@ -25,8 +25,8 @@ namespace DragNDropXF
         {
             base.OnAppearing();
 
-            _Width = App.Current.MainPage.Width;
-            _Height = App.Current.MainPage.Height;
+            _Width = Application.Current.MainPage.Width;
+            _Height = Application.Current.MainPage.Height;
 
             dvc1.DragUpdated = HandleDrag;
             //dvc2.DragUpdated = HandleDrag;
@@ -42,8 +42,13 @@ namespace DragNDropXF
             LastDraggedDV = e.View;
         }
 
+
+
+
+
         private bool HandleDrag(DragNDropEventArgs e)
         {
+
             Debug.WriteLine($"X : {e.X} Y : {e.Y}");
             // XamlDraggableView.TranslationX = e.X / 1080 * _Width;
             // XamlDraggableView.TranslationY = e.Y / 1920 * _Height; 

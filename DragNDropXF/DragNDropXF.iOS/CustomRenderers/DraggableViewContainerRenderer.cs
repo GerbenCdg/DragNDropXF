@@ -6,15 +6,17 @@ using System.Text;
 
 
 using DragNDropXF.CustomControl;
-using DragNDropXF.Droid.CustomRenderer;
+
 using DragNDropXF.iOS.CustomControls;
 using DragNDropXF.Events;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using CoreGraphics;
+using DragNDropXF.iOS.CustomRenderer;
+using UIKit;
 
 [assembly: ExportRenderer(typeof(DraggableViewContainer), typeof(DraggableContainerRenderer))]
-namespace DragNDropXF.Droid.CustomRenderer
+namespace DragNDropXF.iOS.CustomRenderer
 {
     class DraggableContainerRenderer : ViewRenderer<DraggableViewContainer, DraggableContaineriOS>
     {
@@ -37,9 +39,16 @@ namespace DragNDropXF.Droid.CustomRenderer
             }
         }
 
-        private void SetDragNDropDelegate(DraggableContaineriOS androidDvc, DraggableViewContainer dvc)
+        private void SetDragNDropDelegate(DraggableContaineriOS iOSDraggableContainer, DraggableViewContainer xamarinDraggableContainer)
         {
-           
+            iOSDraggableContainer.ResolveDropOperation = delegate (DraggableContaineriOS containerThatReceivedTheDropOperation, UIDropInteraction dropInteraction, IUIDropSession dropSession) {
+
+                //var response = xamarinDraggableContainer.DragUpdated(new DragNDropEventArgs(Element,));
+
+                return UIDropOperation.Copy;
+            };
+
+            // iOSDraggableContainer.PerformDrop 
         }
 
 

@@ -11,9 +11,11 @@ namespace DragNDropXF.iOS.CustomControls
     public class DraggableContaineriOS : UIView, IUIDropInteractionDelegate
     {
 
-        public delegate UIDropOperation DragUpdatedDelegate(DraggableContaineriOS containerThatReceivedTheDropOperation);
+        public delegate UIDropOperation DragUpdatedDelegate(DraggableContaineriOS containerThatReceivedTheDropOperation, UIDropInteraction dropInteraction, IUIDropSession dropSession);
+        public delegate void PerfomDropDelegate(UIDropInteraction dropInteraction, IUIDropSession dropSession);
 
-        public DragUpdatedDelegate ResolveOperation { get; set; }
+        public DragUpdatedDelegate ResolveDropOperation { get; set; }
+        public PerfomDropDelegate PerformDropOperation { get; set; }
 
         #region Constructor
         public DraggableContaineriOS()
@@ -44,13 +46,20 @@ namespace DragNDropXF.iOS.CustomControls
         [Export("dropInteraction:sessionDidUpdate:")]
         public virtual UIDropProposal SessionDidUpdate(UIDropInteraction interaction, IUIDropSession session)
         {
-            return new UIDropProposal(ResolveOperation(this));
+            if(ResolveDropOperation == null){
+                throw new NullReferenceException("The ResolveDropOperation delegate must be defined before calling the 'SessionDidUpdate' method");
+            }
+            return new UIDropProposal(ResolveDropOperation(this, interaction, session));
         }
 
         [Export("dropInteraction:performDrop:")]
         public virtual void PerformDrop(UIDropInteraction interaction, IUIDropSession session)
         {
-
+            if (PerformDropOperation == null)
+            {
+                throw new NullReferenceException("The PerformDropOperation delegate must be defined before calling the 'PerformDrop' method");
+            }
+            PerformDropOperation(interaction, session);
         }
         #endregion
     }

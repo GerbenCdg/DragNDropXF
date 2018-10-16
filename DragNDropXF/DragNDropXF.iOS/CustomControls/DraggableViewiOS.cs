@@ -8,16 +8,17 @@ using UIKit;
 namespace DragNDropXF.iOS.CustomControls
 {
     /// <summary>
-    /// Represents a normal native iOS Draggable View
+    /// Represents a native iOS Draggable View
     /// </summary>
     [Register("DraggableViewiOS")]
     public class DraggableViewiOS : UIView, IUIDragInteractionDelegate
     {
+        #region Events
+        public event EventHandler<OnTouchedEventArgs> OnTouched;
+        #endregion
 
         #region Private Fields
-        private UIDropInteraction _UIDropInteraction;
         private UIDragInteraction _UIDragInteraction;
-
         #endregion
 
         #region Constructors
@@ -52,7 +53,6 @@ namespace DragNDropXF.iOS.CustomControls
 
         void Initialize()
         {
-            BackgroundColor = UIColor.Blue;
             UserInteractionEnabled = true;
             _UIDragInteraction = new UIDragInteraction(this);
         }
@@ -60,13 +60,15 @@ namespace DragNDropXF.iOS.CustomControls
         #region IUIDragInteractionDelegate
         public virtual UIDragItem[] GetItemsForBeginningSession(UIDragInteraction interaction, IUIDragSession session)
         {
+            // no data needed since we directly have access to the view thanks to the OnTouched event
             return new UIDragItem[] { new UIDragItem(default(NSItemProvider)) };
         }
+
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)
         {
             base.TouchesBegan(touches, evt);
-
+            OnTouched?.Invoke(this, new OnTouchedEventArgs(this));
         }
         #endregion
 
@@ -74,4 +76,5 @@ namespace DragNDropXF.iOS.CustomControls
         #endregion
 
     }
+
 }
