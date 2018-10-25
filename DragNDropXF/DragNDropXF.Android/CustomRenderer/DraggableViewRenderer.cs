@@ -14,6 +14,7 @@ using DragNDropXF.CustomControl;
 using DragNDropXF.Droid.CustomRenderer;
 using DragNDropXF.Droid.Views;
 using DragNDropXF.Events;
+using DragNDropXF.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -39,6 +40,8 @@ namespace DragNDropXF.Droid.CustomRenderer
                 {
                     Element.RaiseOnTouched();
                 };
+
+                Element.Content = new ScratchView();
 
                 SetNativeControl(view);
             }

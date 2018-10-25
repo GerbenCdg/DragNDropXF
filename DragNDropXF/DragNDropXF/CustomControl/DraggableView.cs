@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DragNDropXF.CustomControl
 {
-    public class DraggableView : Xamarin.Forms.View
+    public class DraggableView : Xamarin.Forms.ContentView
     {
         #region Events
 

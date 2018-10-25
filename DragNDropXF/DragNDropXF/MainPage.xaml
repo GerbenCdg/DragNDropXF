@@ -3,18 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DragNDropXF"
              xmlns:customControl="clr-namespace:DragNDropXF.CustomControl"
+             xmlns:views="clr-namespace:DragNDropXF.Views"
              x:Class="DragNDropXF.MainPage">
 
-    <StackLayout Padding="24" Spacing="18"
+
+    <!--<views:ScratchView/>-->
+
+
+    <StackLayout Spacing="18"
                  BackgroundColor="Beige"
                  Orientation="Vertical">
-        
+
         <customControl:DraggableViewContainer
             BackgroundColor="DarkOliveGreen"
+            HeightRequest="400"
             x:Name="dvc1">
 
             <customControl:DraggableView
-            x:Name="XamlDraggableView"/>
+            x:Name="XamlDraggableView"
+                HeightRequest="300" WidthRequest="200"/>
 
         </customControl:DraggableViewContainer>
 
@@ -22,7 +29,7 @@
             x:Name="dvc2"
             BackgroundColor="AliceBlue"/>
 
-        <customControl:DraggableViewContainer
+        <!--<customControl:DraggableViewContainer
             x:Name="dvc3"
             BackgroundColor="LightYellow"/>
 
@@ -33,7 +40,7 @@
 
         <customControl:DraggableViewContainer
             x:Name="dvc5"
-            BackgroundColor="Tomato"/>
+            BackgroundColor="Tomato"/>-->
 
     </StackLayout>
 

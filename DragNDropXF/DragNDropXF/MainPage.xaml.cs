@@ -14,7 +14,7 @@ namespace DragNDropXF
     {
         public MainPage()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
         private double _Width = 0;
@@ -30,9 +30,9 @@ namespace DragNDropXF
 
             dvc1.DragUpdated = HandleDrag;
             dvc2.DragUpdated = HandleDrag;
-            dvc3.DragUpdated = HandleDrag;
-            dvc4.DragUpdated = HandleDrag;
-            dvc5.DragUpdated = HandleDrag;
+            //dvc3.DragUpdated = HandleDrag;
+            //dvc4.DragUpdated = HandleDrag;
+            //dvc5.DragUpdated = HandleDrag;
 
             XamlDraggableView.OnTouched += XamlDraggableView_OnTouched;
         }

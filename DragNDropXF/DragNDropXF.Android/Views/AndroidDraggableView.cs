@@ -19,7 +19,7 @@ namespace DragNDropXF.Droid.Views
         public bool OnTouch(View v, MotionEvent e)
         {
             var clipData = new ClipData("Label", new string[] { ClipDescription.MimetypeTextPlain }, new ClipData.Item("Label"));
-            v.StartDragAndDrop(clipData, new View.DragShadowBuilder(v), null, 0);
+            v.StartDragAndDrop(clipData, new View.DragShadowBuilder(((ViewGroup)v.Parent).GetChildAt(1)), null, 0);
 
             OnTouched?.Invoke(this, new OnTouchedEventArgs(v));
 
