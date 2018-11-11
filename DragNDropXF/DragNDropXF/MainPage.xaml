@@ -10,11 +10,27 @@
     <!--<views:ScratchView/>-->
 
 
-    <StackLayout Spacing="18"
+    <AbsoluteLayout>
+        <StackLayout Spacing="24"
                  BackgroundColor="Beige"
-                 Orientation="Vertical">
+                 Orientation="Vertical"
+                 HorizontalOptions="Start"
+                 >
 
-        <customControl:DraggableViewContainer
+            <local:DraggableView2 />
+            <local:DraggableView2 Scale="0.5"/>
+            <local:DraggableView2 BackgroundColor="AliceBlue" Scale="0.8"/>
+
+        </StackLayout>
+        
+        
+    </AbsoluteLayout>
+
+
+</ContentPage>
+
+
+<!--customControl:DraggableViewContainer
             BackgroundColor="DarkOliveGreen"
             HeightRequest="400"
             x:Name="dvc1">
@@ -23,13 +39,13 @@
             x:Name="XamlDraggableView"
                 HeightRequest="300" WidthRequest="200"/>
 
-        </customControl:DraggableViewContainer>
+            </customControl:DraggableViewContainer-->
 
-        <customControl:DraggableViewContainer
+<!---customControl:DraggableViewContainer
             x:Name="dvc2"
-            BackgroundColor="AliceBlue"/>
+            BackgroundColor="AliceBlue"/>-->
 
-        <!--<customControl:DraggableViewContainer
+<!--<customControl:DraggableViewContainer
             x:Name="dvc3"
             BackgroundColor="LightYellow"/>
 
@@ -41,7 +57,3 @@
         <customControl:DraggableViewContainer
             x:Name="dvc5"
             BackgroundColor="Tomato"/>-->
-
-    </StackLayout>
-
-</ContentPage>

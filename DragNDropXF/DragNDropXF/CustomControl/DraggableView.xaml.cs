@@ -1,4 +1,5 @@
 ﻿using SkiaSharp;
+using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,25 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DragNDropXF.Views
+namespace DragNDropXF.CustomControl
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ScratchView : ContentView
+    public partial class DraggableView : SKCanvasView
     {
-        public ScratchView()
+        #region Events
+
+        public event EventHandler<OnTouchedEventArgs> OnTouched;
+        public void RaiseOnTouched()
+        {
+            OnTouched?.Invoke(this, new OnTouchedEventArgs(this));
+        }
+
+        #endregion
+
+        public DraggableView()
         {
             InitializeComponent();
+            EnableTouchEvents = true;
         }
 
         private SKPaint paint = new SKPaint { Color = SKColors.SkyBlue };
@@ -35,6 +47,14 @@ namespace DragNDropXF.Views
             int height = e.Info.Height;
 
             canvas.Translate(width / 2, height / 2);
+
+            SKPath path = new SKPath();
+            path.AddRect(new SKRect(-400, -300, 400, 300));
+            path.AddArc(new SKRect(-50, -350, 50, -250), 180, -180);
+            path.AddArc(new SKRect(-50, 250, 50, 350), 180, -180);
+
+            canvas.DrawPath(path, paint);
+
             //DrawRect(canvas, 800, 600);
             //// canvas.DrawCircle(0, -300, 50, new SKPaint { Color = SKColors.White });
             //// canvas.DrawCircle(0, 300, 50, Paint);
@@ -48,14 +68,6 @@ namespace DragNDropXF.Views
             //canvas.DrawPath(path, paint);
 
             //canvas.Restore();
-
-            SKPath path = new SKPath();
-            path.AddRect(new SKRect(-400, -300, 400, 300));
-            path.AddArc(new SKRect(-50, -350, 50, -250), 180, -180);
-            path.AddArc(new SKRect(-50, 250, 50, 350), 180, -180);
-
-            canvas.DrawPath(path, paint);
-
         }
 
         private void DrawRect(SKCanvas canvas, int width, int height)

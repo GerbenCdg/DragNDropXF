@@ -17,12 +17,15 @@
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\ScratchView.xaml.cs">
-      <DependentUpon>ScratchView.xaml</DependentUpon>
+    <Compile Update="CustomControl\DraggableView.xaml.cs">
+      <DependentUpon>DraggableView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Views\ScratchView.xaml">
+    <EmbeddedResource Update="CustomControl\DraggableView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DraggableView2.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
