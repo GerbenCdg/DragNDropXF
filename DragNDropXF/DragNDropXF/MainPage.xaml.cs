@@ -14,7 +14,7 @@ namespace DragNDropXF
     {
         public MainPage()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
         private double _Width = 0;
@@ -29,21 +29,26 @@ namespace DragNDropXF
             _Height = Application.Current.MainPage.Height;
 
             dvc1.DragUpdated = HandleDrag;
+            dvc1.DropProposal += HandleDropProposal;
             //dvc2.DragUpdated = HandleDrag;
             //dvc3.DragUpdated = HandleDrag;
             //dvc4.DragUpdated = HandleDrag;
             //dvc5.DragUpdated = HandleDrag;
+        }
 
-            XamlDraggableView.OnTouched += XamlDraggableView_OnTouched;
+        private DropOperation HandleDropProposal(DragNDropEventArgs e)
+        {
+            // this is called while there's a view hovering the container
+
+            // define whether we want to allow or forbid the drop in this container using the arguments
+            Debug.WriteLine($"X : {e.X} Y : {e.Y}");
+            return DropOperation.Copy; // testing
         }
 
         private void XamlDraggableView_OnTouched(object sender, OnTouchedEventArgs e)
         {
             LastDraggedDV = e.View;
         }
-
-
-
 
 
         private bool HandleDrag(DragNDropEventArgs e)
@@ -76,9 +81,24 @@ namespace DragNDropXF
         private void SetViewInContainer(DraggableViewContainer hovered)
         {
             var v = LastDraggedDV;
+            if (v != null)
+            {
 
-            ((DraggableViewContainer)v.Parent).Children.Remove(v);
-            hovered.Children.Add(v);
+                var dragContainer = v.Parent as DraggableViewContainer;
+
+                if (dragContainer != null)
+                {
+                    dragContainer.Children.Remove(v);
+                }
+                else
+                {
+                    var container = v.Parent as Layout<View>;
+                    container.Children.Remove(v);
+                }
+
+                hovered.Children.Add(v);
+            }
+
         }
     }
 }

@@ -76,7 +76,7 @@ namespace DragNDropXF.Droid.CustomRenderer
 
                 if (dvc.DragUpdated == null)
                 {
-                    throw new NullReferenceException("DragUpdated delegate must be set on the Xamarin.Forms draggableView !");
+                    throw new NullReferenceException("DragUpdated delegate must be set on the Xamarin.Forms DraggableView !");
                 }
                 return dvc.DragUpdated.Invoke(new DragNDropEventArgs(dvc, action, x, y));
             };

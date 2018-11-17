@@ -10,22 +10,22 @@
                  Orientation="Vertical">
 
         <customControl:DraggableView 
-            BackgroundColor="Blue"/>
+                    BackgroundColor="Blue"
+                    x:Name="XamlDraggableView"
+                    OnTouched="XamlDraggableView_OnTouched"/>
 
         <customControl:DraggableViewContainer
             BackgroundColor="DarkOliveGreen"
             x:Name="dvc1">
 
-            <customControl:DraggableView
-            x:Name="XamlDraggableView"/>
 
         </customControl:DraggableViewContainer>
 
-        <!--<customControl:DraggableViewContainer
-            x:Name="dvc2"
-            BackgroundColor="AliceBlue"/>
-
         <customControl:DraggableViewContainer
+            x:Name="dvc2"
+            BackgroundColor="Purple"/>
+
+        <!--<customControl:DraggableViewContainer
             x:Name="dvc3"
             BackgroundColor="LightYellow"/>
 

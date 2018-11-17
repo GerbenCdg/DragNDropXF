@@ -12,12 +12,14 @@ namespace DragNDropXF.CustomControl
         #region Delegates
 
         public delegate bool DragUpdatedDelegate(DragNDropEventArgs dndEventArgs);
+        public delegate DropOperation DropProposalDelegate(DragNDropEventArgs dndEventArgs);
+
         public DragUpdatedDelegate DragUpdated { get; set; }
+        public DropProposalDelegate DropProposal { get; set; }
 
         #endregion
 
-        //public static readonly BindableProperty ChildrenProperty =
-        //    BindableProperty.Create(nameof(Children), typeof(ObservableCollection<DraggableView>), typeof(DraggableViewContainer));
+        //public static readonly BindableProperty ChildrenProperty = BindableProperty.Create(nameof(Children), typeof(ObservableCollection<DraggableView>), typeof(DraggableViewContainer));
 
         //public ObservableCollection<DraggableView> Children
         //{
@@ -25,15 +27,20 @@ namespace DragNDropXF.CustomControl
         //    set => SetValue(ChildrenProperty, value);
         //}
 
-        //public DraggableViewContainer()
-        //{
-        //    Children = new ObservableCollection<DraggableView>();
-        //}
-
         public DraggableViewContainer()
         {
+            //Children = new ObservableCollection<DraggableView>();
             HeightRequest = 100;
-            WidthRequest = 200; // Is not working
+            WidthRequest = 200; // It's not working, because you need to take it into account in the renderer .. ?
         }
+    }
+
+
+    public enum DropOperation
+    {
+        Cancel = 0,
+        Forbidden = 1,
+        Copy = 2,
+        Move = 3
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-
+using System.Linq;
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -53,15 +53,52 @@ namespace DragNDropXF.iOS.CustomControls
 
         void Initialize()
         {
+            SetupDrag();
+        }
+
+        private void SetupDrag()
+        {
             UserInteractionEnabled = true;
             _UIDragInteraction = new UIDragInteraction(this);
+            AddInteraction(_UIDragInteraction);
+            _UIDragInteraction.Enabled = true;
+
+            SetupDragDelay();
+        }
+
+        private void SetupDragDelay()
+        {
+
+            UILongPressGestureRecognizer longPressGesture = new UILongPressGestureRecognizer();
+
+            GestureRecognizers?.ToList().ForEach(gesture =>
+            {
+                var x = gesture as UILongPressGestureRecognizer;
+                if (x != null)
+                {
+                    longPressGesture = x;
+                }
+            });
+
+            longPressGesture.MinimumPressDuration = 0.0;
         }
 
         #region IUIDragInteractionDelegate
         public virtual UIDragItem[] GetItemsForBeginningSession(UIDragInteraction interaction, IUIDragSession session)
         {
             // no data needed since we directly have access to the view thanks to the OnTouched event
-            return new UIDragItem[] { new UIDragItem(default(NSItemProvider)) };
+            // so we put stub data so that the provider doesn't provide null objects
+
+            var provider = new NSItemProvider(new NSString(""));
+
+            var item = new UIDragItem(provider)
+            {
+                LocalObject = new NSNumber(true)
+            };
+
+            return new UIDragItem[] { item };
+
+            //return new UIDragItem[] { new UIDragItem(default(NSItemProvider)) };
         }
 
 

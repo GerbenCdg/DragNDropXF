@@ -11,11 +11,26 @@ namespace DragNDropXF.iOS.CustomControls
     public class DraggableContaineriOS : UIView, IUIDropInteractionDelegate
     {
 
+        #region Delegates
         public delegate UIDropOperation DragUpdatedDelegate(DraggableContaineriOS containerThatReceivedTheDropOperation, UIDropInteraction dropInteraction, IUIDropSession dropSession);
         public delegate void PerfomDropDelegate(UIDropInteraction dropInteraction, IUIDropSession dropSession);
+        #endregion
 
+        #region Properties
+        /// <summary>
+        /// This is called when we need to know what you want to do with the object that is being hovered over the container
+        /// </summary>
         public DragUpdatedDelegate ResolveDropOperation { get; set; }
+        /// <summary>
+        /// This is called when we want to perform the drop, once a has been allowed to do so.
+        /// </summary>
         public PerfomDropDelegate PerformDropOperation { get; set; }
+
+        /// <summary>
+        /// The drop interaction charged of the drop operations in this container
+        /// </summary>
+        public UIDropInteraction DropInteraction { get; private set; }
+        #endregion
 
         #region Constructor
         public DraggableContaineriOS()
@@ -28,9 +43,24 @@ namespace DragNDropXF.iOS.CustomControls
             Initialize();
         }
 
+        internal void RemoveAllChildren()
+        {
+            foreach(var subview in Subviews)
+            {
+                subview.RemoveFromSuperview();
+            }
+        }
+
         void Initialize()
         {
-            BackgroundColor = UIColor.Yellow;
+            SetupDrop();
+        }
+
+        private void SetupDrop()
+        {
+            UserInteractionEnabled = true;
+            DropInteraction = new UIDropInteraction(this);
+            AddInteraction(DropInteraction);
         }
         #endregion
 
@@ -46,9 +76,13 @@ namespace DragNDropXF.iOS.CustomControls
         [Export("dropInteraction:sessionDidUpdate:")]
         public virtual UIDropProposal SessionDidUpdate(UIDropInteraction interaction, IUIDropSession session)
         {
-            if(ResolveDropOperation == null){
+            if (ResolveDropOperation == null)
+            {
                 throw new NullReferenceException("The ResolveDropOperation delegate must be defined before calling the 'SessionDidUpdate' method");
             }
+
+
+
             return new UIDropProposal(ResolveDropOperation(this, interaction, session));
         }
 

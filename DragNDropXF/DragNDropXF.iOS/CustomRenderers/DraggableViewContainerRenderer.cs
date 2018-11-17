@@ -14,6 +14,7 @@ using Xamarin.Forms.Platform.iOS;
 using CoreGraphics;
 using DragNDropXF.iOS.CustomRenderer;
 using UIKit;
+using Xamarin.Forms.Internals;
 
 [assembly: ExportRenderer(typeof(DraggableViewContainer), typeof(DraggableContainerRenderer))]
 namespace DragNDropXF.iOS.CustomRenderer
@@ -21,6 +22,7 @@ namespace DragNDropXF.iOS.CustomRenderer
     class DraggableContainerRenderer : ViewRenderer<DraggableViewContainer, DraggableContaineriOS>
     {
 
+        private DraggableContaineriOS _iOSContainer;
 
         protected override void OnElementChanged(ElementChangedEventArgs<DraggableViewContainer> e)
         {
@@ -30,25 +32,116 @@ namespace DragNDropXF.iOS.CustomRenderer
             {
                 // Initialize
                 var frame = new CGRect(0, 0, 100, 100);
-                var iOSDraggableContainer = new DraggableContaineriOS(frame);
-                var dvc = Element;
+                _iOSContainer = new DraggableContaineriOS(frame);
 
-                SetDragNDropDelegate(iOSDraggableContainer, dvc);
+                var formsDraggableContainer = Element;
 
-                SetNativeControl(iOSDraggableContainer);
+                // Set the drop delegate 
+                SetDropDelegates(_iOSContainer, formsDraggableContainer);
+
+
+                SetupVisuals(_iOSContainer, formsDraggableContainer);
+
+
+
+                SetNativeControl(_iOSContainer);
             }
         }
 
-        private void SetDragNDropDelegate(DraggableContaineriOS iOSDraggableContainer, DraggableViewContainer xamarinDraggableContainer)
+        private void SetupVisuals(DraggableContaineriOS iOSContainer, DraggableViewContainer formsDraggableContainer)
         {
-            iOSDraggableContainer.ResolveDropOperation = delegate (DraggableContaineriOS containerThatReceivedTheDropOperation, UIDropInteraction dropInteraction, IUIDropSession dropSession) {
+            
+           //_iOSContainer.BackgroundColor = formsDraggableContainer.BackgroundColor.ToUIColor();
+        }
 
-                //var response = xamarinDraggableContainer.DragUpdated(new DragNDropEventArgs(Element,));
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
 
-                return UIDropOperation.Copy;
+            var formsContainer = Element as DraggableViewContainer;
+
+            //if (e.PropertyName.Equals(DraggableViewContainer.ChildrenProperty.PropertyName))
+            //{
+            //   // SyncChildren(_iOSContainer, formsContainer);
+            //}
+        }
+
+
+        private void SyncChildren(DraggableContaineriOS iOSDraggableContainer, DraggableViewContainer formsDraggableContainer)
+        {
+
+
+            //_iOSContainer.RemoveAllChildren();
+
+            //formsDraggableContainer.Children.ForEach(child =>
+            //    {
+            //        _iOSContainer.AddSubview(new DraggableViewiOS()
+            //        {
+            //            BackgroundColor = child.BackgroundColor.ToUIColor(),
+            //        });
+            //    });
+
+
+        }
+
+
+        private void SetDropDelegates(DraggableContaineriOS iOSDraggableContainer, DraggableViewContainer formsDraggableContainer)
+        {
+            iOSDraggableContainer.ResolveDropOperation = delegate (DraggableContaineriOS containerThatReceivedTheDropOperation, UIDropInteraction dropInteraction, IUIDropSession dropSession)
+            {
+                // called on SessionDidUpdate ios method
+
+                // Inform that the drag and drop has been updated
+                formsDraggableContainer.DragUpdated?.Invoke(new DragNDropEventArgs(
+                        dvc: formsDraggableContainer,
+                        action: DragNDropEventArgs.DragAction.Updated,
+                        x: (float)dropInteraction.View.Center.X,
+                        y: (float)dropInteraction.View.Center.Y)
+                        );
+
+
+                // Ask the Xamarin.Forms control for an answer for this drop proposal
+
+                var formsResponse = formsDraggableContainer.DropProposal?.Invoke(new DragNDropEventArgs(
+                        dvc: formsDraggableContainer,
+                        action: DragNDropEventArgs.DragAction.Updated,
+                        x: (float)dropInteraction.View.Center.X,
+                        y: (float)dropInteraction.View.Center.Y)
+                        );
+
+                UIDropOperation response;
+
+                switch (formsResponse)
+                {
+                    case DropOperation.Cancel:
+                        response = UIDropOperation.Cancel;
+                        break;
+                    case DropOperation.Copy:
+                        response = UIDropOperation.Copy;
+                        break;
+                    case DropOperation.Forbidden:
+                        response = UIDropOperation.Forbidden;
+                        break;
+                    case DropOperation.Move:
+                        response = UIDropOperation.Move;
+                        break;
+                    default:
+                        response = UIDropOperation.Forbidden;
+                        break;
+                }
+
+                return response;
+
             };
 
-            // iOSDraggableContainer.PerformDrop 
+            iOSDraggableContainer.PerformDropOperation = delegate (UIDropInteraction dropInteraction, IUIDropSession dropSession)
+            {
+                formsDraggableContainer.DragUpdated?.Invoke(new DragNDropEventArgs(
+                        dvc: formsDraggableContainer,
+                        action: DragNDropEventArgs.DragAction.Dropped,
+                        x: (float)dropInteraction.View?.Center.X,
+                        y: (float)dropInteraction.View?.Center.Y)
+                        );
+            };
         }
 
 

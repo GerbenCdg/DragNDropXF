@@ -18,16 +18,26 @@ namespace DragNDropXF.Droid.CustomRenderer
 
         protected override void OnElementChanged(ElementChangedEventArgs<DraggableView> e)
         {
+            // If the control is null, we initialize it
             if (Control == null)
             {
-
+                    
+                // Initialize the draggable view
                 var frame = new CGRect(0, 0, 50, 50);
                 var view = new DraggableViewiOS(frame);
+
+                // Setup Events
+                view.OnTouched += View_OnTouched;
 
                 SetNativeControl(view);
             }
         }
-                
+
+        private void View_OnTouched(object sender, iOS.CustomControls.OnTouchedEventArgs e)
+        {
+            var args = new DragNDropXF.OnTouchedEventArgs(Element);
+            Element.RaiseOnTouched(args);
+        }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

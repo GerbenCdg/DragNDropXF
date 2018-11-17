@@ -9,11 +9,11 @@ namespace DragNDropXF.CustomControl
     {
         #region Events
 
-        public event EventHandler<OnTouchedEventArgs> OnTouched;
+        public event EventHandler<OnTouchedEventArgs> OnTouched;    
 
-        public void RaiseOnTouched()
+        public void RaiseOnTouched(OnTouchedEventArgs args)
         {
-            OnTouched?.Invoke(this, new OnTouchedEventArgs(this));
+            OnTouched?.Invoke(this, args);
         }
 
         #endregion
