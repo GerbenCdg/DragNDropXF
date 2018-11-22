@@ -16,13 +16,49 @@ namespace DragNDropXF
     {
         public ITouchable Touchable { get; set; }
 
+        #region Xaml Fields
+        public readonly BindableProperty SKPaintProperty = 
+            BindableProperty.Create(
+                nameof(SKPaint),
+                typeof(SKPaint),
+                typeof(DraggableView2),
+                new SKPaint {
+                    Color = SKColors.SkyBlue,
+                    /*Style = SKPaintStyle.StrokeAndFill,
+                    StrokeWidth = 1*/
+                },
+                BindingMode.TwoWay
+             );
+
+        public SKPaint SKPaint
+        {
+            get => (SKPaint)GetValue(SKPaintProperty);
+            set => SetValue(SKPaintProperty, value);
+        }
+
+        //public readonly BindableProperty SKPaintColorProperty =
+        //    BindableProperty.Create(
+        //        nameof(SKColor),
+        //        typeof(SKColor),
+        //        typeof(DraggableView2),
+        //        SKColors.AliceBlue
+        //    );
+
+        //public SKColor SKColor
+        //{
+        //    get => (SKColor)GetValue(SKPaintProperty);
+        //    set => SetValue(SKPaintProperty, value);
+        //}
+
+        #endregion
+
         public DraggableView2()
         {
             InitializeComponent();
             EnableTouchEvents = true;
             Touchable = this;
 
-            WidthRequest = 400;
+            WidthRequest = 300;
             HeightRequest = 200;
         }
 
@@ -30,16 +66,8 @@ namespace DragNDropXF
         {
             Touchable.OnTouch(sender, e);
         }
-
-        private SKPaint paint = new SKPaint { Color = SKColors.SkyBlue };
-        SKPaint thinLinePaint = new SKPaint
-        {
-            Style = SKPaintStyle.Stroke,
-            Color = SKColors.Black,
-            StrokeWidth = 2
-        };
-
-        private void SKCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+        
+        private void SKCanvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
             SKCanvas canvas = e.Surface.Canvas;
 
@@ -60,7 +88,7 @@ namespace DragNDropXF
             path.AddArc(new SKRect(-50, -350, 50, -250), 180, -180);
             path.AddArc(new SKRect(-50, 250, 50, 350), 180, -180);
 
-            canvas.DrawPath(path, paint);
+            canvas.DrawPath(path, SKPaint);
 
             #region exampleCode
             //DrawRect(canvas, 800, 600);
@@ -82,9 +110,12 @@ namespace DragNDropXF
         private DraggableView2 DraggedView { get; set; }
         private View GhostView { get; set; }
 
+        private double Dx { get; set; }
+        private double Dy { get; set; }
+
         public void OnTouch(object sender, SKTouchEventArgs e)
         {
-            Console.WriteLine($"X: {e.Location.X} Y: {e.Location.Y}");
+            //Console.WriteLine($"X: {e.Location.X} Y: {e.Location.Y}");
             float X = e.Location.X;
             float Y = e.Location.Y;
 
@@ -93,18 +124,24 @@ namespace DragNDropXF
                 case SKTouchAction.Entered:
                     Console.WriteLine("Entered");
                     break;
+
                 case SKTouchAction.Pressed:
                     DraggedView = sender as DraggableView2;
-                    GhostView = (View) DraggedView.Clone();
-                    ((AbsoluteLayout)Parent.Parent).Children.Add(GhostView);
+                    GhostView = (View)DraggedView.Clone();
+
+                    ((Layout<View>)Parent.Parent).Children.Add(GhostView);
                     AbsoluteLayout.SetLayoutFlags(GhostView, AbsoluteLayoutFlags.PositionProportional);
+                    Dx = X / 3 - GhostView.X - DraggedView.X;
+                    Dy = Y / 3 - GhostView.Y - DraggedView.Y;
                     Console.WriteLine("Pressed");
                     break;
+
                 case SKTouchAction.Moved:
-                    GhostView.TranslationX = X/3 - GhostView.X;
-                    GhostView.TranslationY = Y/3 - GhostView.Y;
-                    Console.WriteLine("Moved");
+                    GhostView.TranslationX = X / 3 - GhostView.X - Dx;
+                    GhostView.TranslationY = Y / 3 - GhostView.Y - Dy;
+                    //Console.WriteLine("Moved");
                     break;
+
                 case SKTouchAction.Released:
                     ((AbsoluteLayout)Parent.Parent).Children.Remove(GhostView);
                     Console.WriteLine("Released");
@@ -112,6 +149,7 @@ namespace DragNDropXF
                 case SKTouchAction.Cancelled:
                     Console.WriteLine("Cancelled");
                     break;
+
                 case SKTouchAction.Exited:
                     Console.WriteLine("Cancelled");
                     break;
@@ -122,7 +160,8 @@ namespace DragNDropXF
 
         public object Clone()
         {
-            return new DraggableView2() {
+            return new DraggableView2()
+            {
                 Scale = Scale,
                 EnableTouchEvents = false,
                 WidthRequest = WidthRequest,

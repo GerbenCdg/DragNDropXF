@@ -4,22 +4,23 @@
              xmlns:local="clr-namespace:DragNDropXF"
              xmlns:customControl="clr-namespace:DragNDropXF.CustomControl"
              xmlns:views="clr-namespace:DragNDropXF.Views"
+             xmlns:skia="clr-namespace:SkiaSharp;assembly=SkiaSharp"
              x:Class="DragNDropXF.MainPage">
 
 
     <!--<views:ScratchView/>-->
-
+    <ContentPage.Resources>
+        <skia:SKPaint x:Key="SKPaint" Color="{x:Static skia:SKColors.BlueViolet}"/>
+    </ContentPage.Resources>
 
     <AbsoluteLayout>
         <StackLayout Spacing="24"
                  BackgroundColor="Beige"
                  Orientation="Vertical"
-                 HorizontalOptions="Start"
-                 >
+                 HorizontalOptions="Center">
 
             <local:DraggableView2 />
-            <local:DraggableView2 Scale="0.5"/>
-            <local:DraggableView2 BackgroundColor="AliceBlue" Scale="0.8"/>
+            <local:DraggableView2 />
 
         </StackLayout>
         
