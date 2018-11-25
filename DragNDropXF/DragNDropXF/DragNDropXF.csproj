@@ -10,6 +10,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+    <Compile Include="..\Shared\Extensions.cs" Link="Shared\Extensions.cs" />
+    <Compile Include="..\Shared\RendererTypes.cs" Link="Shared\RendererTypes.cs" />
+    <Compile Include="..\Shared\SKCanvasStackLayout.cs" Link="Shared\SKCanvasStackLayout.cs" />
+    <Compile Include="..\Shared\SKImageSource.cs" Link="Shared\SKImageSource.cs" />
+    <Compile Include="..\Shared\SKPaintSurfaceEventArgs.cs" Link="Shared\SKPaintSurfaceEventArgs.cs" />
+    <Compile Include="..\Shared\SKTouchEventArgs.cs" Link="Shared\SKTouchEventArgs.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.60.3" />
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\" />
   </ItemGroup>
 </Project>

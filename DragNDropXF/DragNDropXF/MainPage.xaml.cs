@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,14 @@ namespace DragNDropXF
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        public void OnPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        {
+            var canvas = e.Surface.Canvas;
+
+            canvas.DrawRect(new SKRect(20, 20, 200, 200), new SKPaint() { Color = SKColors.Aqua, Style = SKPaintStyle.Fill });
+
         }
     }
 }
