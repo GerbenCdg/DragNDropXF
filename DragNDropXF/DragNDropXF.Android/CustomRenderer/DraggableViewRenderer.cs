@@ -22,6 +22,9 @@ namespace DragNDropXF.Droid.CustomRenderer
     class DraggableViewRenderer : ViewRenderer<DraggableView, AndroidDraggableView>
     {
         private readonly Context _context;
+        // Control : Native view 
+        // Element : Xamarin Forms view
+
 
         public DraggableViewRenderer(Context context) : base(context)
         {
@@ -38,7 +41,8 @@ namespace DragNDropXF.Droid.CustomRenderer
                 {
                     Element.RaiseOnTouched();
                 };
-
+                
+                
                // Element.Children.Add(view);
 
                 SetNativeControl(view);

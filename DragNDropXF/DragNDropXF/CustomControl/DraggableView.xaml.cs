@@ -2,6 +2,7 @@
 using SkiaSharp.Views.Forms;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,52 +28,39 @@ namespace DragNDropXF.CustomControl
         public DraggableView()
         {
             InitializeComponent();
-            EnableTouchEvents = true;
+           
+            Debug.WriteLine($"View Height : {Height} Width : { Width}");
+            Debug.WriteLine($"Canvas Height : {CanvasSize.Height} Width : { CanvasSize.Width}");
         }
 
-        private SKPaint paint = new SKPaint { Color = SKColors.SkyBlue };
-        SKPaint thinLinePaint = new SKPaint
+        private SKPaint _paint = new SKPaint
         {
-            Style = SKPaintStyle.Stroke,
-            Color = SKColors.Black,
-            StrokeWidth = 2
+            Color = SKColors.SkyBlue,
+            Style = SKPaintStyle.Fill,
+            StrokeWidth = 1
         };
 
-        private void SKCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+        private void SKCanvasView_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {
-            SKSurface surface = e.Surface;
-            SKCanvas canvas = surface.Canvas;
+            SKCanvas canvas = e.Surface.Canvas;
 
             int width = e.Info.Width;
             int height = e.Info.Height;
 
+            Console.WriteLine($"Canvas : width :{width}, height: {height}");
+            Console.WriteLine($"View : width : {Width}, height: {Height}");
+            Console.WriteLine($"View (requested) : width : {WidthRequest}, height: {HeightRequest}");
+
             canvas.Translate(width / 2, height / 2);
+            canvas.Scale(width / 800f, height / 600f);
 
             SKPath path = new SKPath();
             path.AddRect(new SKRect(-400, -300, 400, 300));
             path.AddArc(new SKRect(-50, -350, 50, -250), 180, -180);
             path.AddArc(new SKRect(-50, 250, 50, 350), 180, -180);
 
-            canvas.DrawPath(path, paint);
-
-            //DrawRect(canvas, 800, 600);
-            //// canvas.DrawCircle(0, -300, 50, new SKPaint { Color = SKColors.White });
-            //// canvas.DrawCircle(0, 300, 50, Paint);
-
-            //canvas.Save();
-            //canvas.Translate(0, -300);
-
-            //canvas.Translate(0, 600);
-            //path = new SKPath();
-            //path.AddArc(new SKRect(-50, -50, 50, 50), 0, 360);
-            //canvas.DrawPath(path, paint);
-
-            //canvas.Restore();
+            canvas.DrawPath(path, _paint);
         }
 
-        private void DrawRect(SKCanvas canvas, int width, int height)
-        {
-            canvas.DrawRect(new SKRect(-width / 2, -height / 2, width / 2, height / 2), paint);
-        }
     }
 }
