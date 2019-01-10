@@ -29,19 +29,20 @@
         <StackLayout>
 
             <customControl:DraggableViewContainer x:Name="dvc1"
-                BackgroundColor="DarkOliveGreen"
-                HeightRequest="400" WidthRequest="300">
+                BackgroundColor="DarkOliveGreen">
 
                 <customControl:DraggableView x:Name="XamlDraggableView"
-                    VerticalOptions="FillAndExpand"
+                    HeightRequest="100" WidthRequest="100"
                     />
 
             </customControl:DraggableViewContainer>
 
-            <customControl:DraggableViewContainer x:Name="dvc2"
-                BackgroundColor="AliceBlue"/>
+        <customControl:DraggableViewContainer x:Name="dvc2"
+                BackgroundColor="AliceBlue">
 
-            <customControl:DraggableViewContainer x:Name="dvc3"
+        </customControl:DraggableViewContainer>
+
+        <customControl:DraggableViewContainer x:Name="dvc3"
                 BackgroundColor="LightYellow"/>
             
         </StackLayout>
