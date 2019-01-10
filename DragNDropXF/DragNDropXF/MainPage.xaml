@@ -6,36 +6,20 @@
              xmlns:skia="clr-namespace:SkiaSharp;assembly=SkiaSharp"
              x:Class="DragNDropXF.MainPage">
 
-    <!--<views:ScratchView/>-->
     <ContentPage.Resources>
         <skia:SKPaint x:Key="SKPaint" Color="{x:Static skia:SKColors.BlueViolet}"/>
     </ContentPage.Resources>
 
-    <!--<AbsoluteLayout>
-        <StackLayout Spacing="24"
-                 BackgroundColor="Beige"
-                 Orientation="Vertical"
-                 HorizontalOptions="Center">
+    <StackLayout>
 
-            <local:DraggableView2 />
-            <local:DraggableView2 />
-
-        </StackLayout>
-        
-        
-    </AbsoluteLayout>-->
-
- 
-        <StackLayout>
-
-            <customControl:DraggableViewContainer x:Name="dvc1"
+        <customControl:DraggableViewContainer x:Name="dvc1"
                 BackgroundColor="DarkOliveGreen">
 
-                <customControl:DraggableView x:Name="XamlDraggableView"
+            <customControl:DraggableView x:Name="XamlDraggableView"
                     HeightRequest="100" WidthRequest="100"
                     />
 
-            </customControl:DraggableViewContainer>
+        </customControl:DraggableViewContainer>
 
         <customControl:DraggableViewContainer x:Name="dvc2"
                 BackgroundColor="AliceBlue">
@@ -44,16 +28,8 @@
 
         <customControl:DraggableViewContainer x:Name="dvc3"
                 BackgroundColor="LightYellow"/>
-            
-        </StackLayout>
-    
+
+    </StackLayout>
+
 
 </ContentPage>
-
-<!--<customControl:DraggableViewContainer
-            x:Name="dvc4"
-            BackgroundColor="MediumVioletRed"/>
-
-        <customControl:DraggableViewContainer
-            x:Name="dvc5"
-            BackgroundColor="Tomato"/>-->

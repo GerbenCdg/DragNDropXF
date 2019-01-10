@@ -45,8 +45,6 @@ namespace DragNDropXF
         private bool HandleDrag(DragNDropEventArgs e)
         {
             Debug.WriteLine($"X : {e.X} Y : {e.Y}");
-            // XamlDraggableView.TranslationX = e.X / 1080 * _Width;
-            // XamlDraggableView.TranslationY = e.Y / 1920 * _Height; 
 
             switch (e.Action)
             {
