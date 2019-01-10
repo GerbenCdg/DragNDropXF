@@ -17,29 +17,11 @@
                 <customControl:DraggableView 
                     BackgroundColor="Yellow"
                     x:Name="XamlDraggableView2"
-                    
                     OnTouched="XamlDraggableView_OnTouched"/>
         
-                <customControl:DraggableView 
-                    BackgroundColor="Yellow"
-                    x:Name="XamlDraggableView3"
-                    OnTouched="XamlDraggableView_OnTouched"/>
-        
-                <customControl:DraggableView 
-                    BackgroundColor="Yellow"
-                    x:Name="XamlDraggableView4"
-                    OnTouched="XamlDraggableView_OnTouched"/>
-        
-                <customControl:DraggableView 
-                    BackgroundColor="White"
-                    x:Name="XamlDraggableView5"
-                    OnTouched="XamlDraggableView_OnTouched"/>
-
-
         <customControl:DraggableViewContainer
             BackgroundColor="DarkOliveGreen"
             x:Name="dvc1">
-
 
         </customControl:DraggableViewContainer>
 
