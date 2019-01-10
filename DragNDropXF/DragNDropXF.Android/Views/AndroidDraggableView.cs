@@ -12,14 +12,18 @@ using Android.Widget;
 
 namespace DragNDropXF.Droid.Views
 {
-    class AndroidDraggableView : LinearLayout, View.IOnTouchListener
+    class AndroidDraggableView : View, View.IOnTouchListener
     {
         public event EventHandler<OnTouchedEventArgs> OnTouched;
 
         public bool OnTouch(View v, MotionEvent e)
         {
+            var shadow = new View.DragShadowBuilder(v);
+            shadow.View.SetMinimumHeight(100);
+            shadow.View.SetMinimumWidth(100);
+
             var clipData = new ClipData("Label", new string[] { ClipDescription.MimetypeTextPlain }, new ClipData.Item("Label"));
-            v.StartDragAndDrop(clipData, new View.DragShadowBuilder(v), null, 0);
+            v.StartDragAndDrop(clipData, shadow, null, 0);
 
             OnTouched?.Invoke(this, new OnTouchedEventArgs(v));
 
@@ -28,10 +32,8 @@ namespace DragNDropXF.Droid.Views
 
         public AndroidDraggableView(Context context) : base(context)
         {
-            LayoutInflater.FromContext(context).Inflate(Resource.Layout.DraggableView, this);
             SetOnTouchListener(this);            
         }
 
-       
     }
 }

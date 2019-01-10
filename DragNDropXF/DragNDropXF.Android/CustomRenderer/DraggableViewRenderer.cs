@@ -40,6 +40,9 @@ namespace DragNDropXF.Droid.CustomRenderer
                     Element.RaiseOnTouched(new DragNDropXF.OnTouchedEventArgs(Element));
                 };
 
+                view.SetMinimumWidth(100);
+                view.SetMinimumHeight(100);
+
                 SetNativeControl(view);
             }
         }
