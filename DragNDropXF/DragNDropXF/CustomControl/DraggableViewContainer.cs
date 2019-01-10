@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace DragNDropXF.CustomControl
 {
-    public class DraggableViewContainer : Xamarin.Forms.AbsoluteLayout
+    public class DraggableViewContainer : Xamarin.Forms.StackLayout
     {
         #region Delegates
 
@@ -32,6 +32,9 @@ namespace DragNDropXF.CustomControl
             //Children = new ObservableCollection<DraggableView>();
             HeightRequest = 100;
             WidthRequest = 200; // It's not working, because you need to take it into account in the renderer .. ?
+            Spacing = 10;
+            Orientation = StackOrientation.Horizontal;
+
         }
     }
 

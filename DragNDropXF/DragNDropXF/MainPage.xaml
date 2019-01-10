@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DragNDropXF"
@@ -9,10 +9,32 @@
                  BackgroundColor="Beige"
                  Orientation="Vertical">
 
-        <customControl:DraggableView 
+                <customControl:DraggableView 
                     BackgroundColor="Blue"
                     x:Name="XamlDraggableView"
                     OnTouched="XamlDraggableView_OnTouched"/>
+        
+                <customControl:DraggableView 
+                    BackgroundColor="Yellow"
+                    x:Name="XamlDraggableView2"
+                    
+                    OnTouched="XamlDraggableView_OnTouched"/>
+        
+                <customControl:DraggableView 
+                    BackgroundColor="Yellow"
+                    x:Name="XamlDraggableView3"
+                    OnTouched="XamlDraggableView_OnTouched"/>
+        
+                <customControl:DraggableView 
+                    BackgroundColor="Yellow"
+                    x:Name="XamlDraggableView4"
+                    OnTouched="XamlDraggableView_OnTouched"/>
+        
+                <customControl:DraggableView 
+                    BackgroundColor="White"
+                    x:Name="XamlDraggableView5"
+                    OnTouched="XamlDraggableView_OnTouched"/>
+
 
         <customControl:DraggableViewContainer
             BackgroundColor="DarkOliveGreen"
@@ -25,7 +47,9 @@
             x:Name="dvc2"
             BackgroundColor="Purple"/>
 
-        <!--<customControl:DraggableViewContainer
+        <!--
+        
+        <customControl:DraggableViewContainer
             x:Name="dvc3"
             BackgroundColor="LightYellow"/>
 

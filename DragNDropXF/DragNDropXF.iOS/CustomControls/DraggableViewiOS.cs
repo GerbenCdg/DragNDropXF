@@ -88,6 +88,7 @@ namespace DragNDropXF.iOS.CustomControls
         {
             // no data needed since we directly have access to the view thanks to the OnTouched event
             // so we put stub data so that the provider doesn't provide null objects
+            TouchesBegan(null, null);
 
             var provider = new NSItemProvider(new NSString(""));
 
@@ -104,7 +105,11 @@ namespace DragNDropXF.iOS.CustomControls
 
         public override void TouchesBegan(NSSet touches, UIEvent evt)
         {
-            base.TouchesBegan(touches, evt);
+            if(touches != null && evt != null)
+            {
+                base.TouchesBegan(touches, evt);
+            }
+           
             OnTouched?.Invoke(this, new OnTouchedEventArgs(this));
         }
         #endregion

@@ -11,7 +11,7 @@ using Xamarin.Forms;
 namespace DragNDropXF
 {
     public partial class MainPage : ContentPage
-    {
+    { 
         public MainPage()
         {
             InitializeComponent();
@@ -23,6 +23,7 @@ namespace DragNDropXF
 
         protected override void OnAppearing()
         {
+        
             base.OnAppearing();
 
             _Width = Application.Current.MainPage.Width;
@@ -30,7 +31,8 @@ namespace DragNDropXF
 
             dvc1.DragUpdated = HandleDrag;
             dvc1.DropProposal += HandleDropProposal;
-            //dvc2.DragUpdated = HandleDrag;
+            dvc2.DragUpdated = HandleDrag;
+            dvc2.DropProposal += HandleDropProposal;
             //dvc3.DragUpdated = HandleDrag;
             //dvc4.DragUpdated = HandleDrag;
             //dvc5.DragUpdated = HandleDrag;
@@ -53,7 +55,6 @@ namespace DragNDropXF
 
         private bool HandleDrag(DragNDropEventArgs e)
         {
-
             Debug.WriteLine($"X : {e.X} Y : {e.Y}");
             // XamlDraggableView.TranslationX = e.X / 1080 * _Width;
             // XamlDraggableView.TranslationY = e.Y / 1920 * _Height; 
@@ -84,17 +85,17 @@ namespace DragNDropXF
             if (v != null)
             {
 
-                var dragContainer = v.Parent as DraggableViewContainer;
+                //var dragContainer = v.Parent as DraggableViewContainer;
 
-                if (dragContainer != null)
-                {
-                    dragContainer.Children.Remove(v);
-                }
-                else
-                {
-                    var container = v.Parent as Layout<View>;
-                    container.Children.Remove(v);
-                }
+                //if (dragContainer != null)
+                //{
+                //    dragContainer.Children.Remove(v);
+                //}
+                //else
+                //{
+                //    var container = v.Parent as Layout<View>;
+                //    container.Children.Remove(v);
+                //}
 
                 hovered.Children.Add(v);
             }
